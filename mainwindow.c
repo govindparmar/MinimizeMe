@@ -113,6 +113,16 @@ VOID WINAPI OnWindowPosChanged(_In_ HWND hWnd, _In_ CONST LPWINDOWPOS lpWP)
     }
 }
 
+VOID WINAPI OnPaint(_In_ HWND hWnd)
+{
+    PAINTSTRUCT ps;
+
+    BeginPaint(hWnd, &ps);
+    EndPaint(hWnd, &ps);
+
+    return;
+}
+
 LRESULT CALLBACK WindowProc(_In_ HWND hWnd, _In_ UINT Msg, _In_ WPARAM wParam, _In_ LPARAM lParam)
 {
     switch (Msg)
@@ -120,6 +130,7 @@ LRESULT CALLBACK WindowProc(_In_ HWND hWnd, _In_ UINT Msg, _In_ WPARAM wParam, _
         HANDLE_MSG(hWnd, WM_CLOSE, OnClose);
         HANDLE_MSG(hWnd, WM_CREATE, OnCreate);
         HANDLE_MSG(hWnd, WM_DESTROY, OnDestroy);
+        HANDLE_MSG(hWnd, WM_PAINT, OnPaint);
         HANDLE_MSG(hWnd, WM_WINDOWPOSCHANGED, OnWindowPosChanged);
     default:
         return DefWindowProcW(hWnd, Msg, wParam, lParam);
